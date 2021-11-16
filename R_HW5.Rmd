@@ -1,0 +1,20 @@
+---
+title: "R_HW5"
+author: "Margaret Patterson"
+date: "11/15/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+
+
+
+
+
+git remote add origin https://github.com/mepatt314/R_HW5.git
