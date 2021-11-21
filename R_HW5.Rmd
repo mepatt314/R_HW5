@@ -9,7 +9,9 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-4. Create an RMarkdown file for your homework answers in the appropriate subdirectory and save it. Commit this change with an appropriate commit message. (At this stage, you can look at your “History” in the git commit window to see the changes you’ve made so far.)
+
+NEW PIECE
+
 
 5. Login to your GitHub account and create a new, blank repo with the same name as your R project. (If you have not already set up an SSH key to make it easier to push back and forth between your computer and GitHub, do so now.)
 
