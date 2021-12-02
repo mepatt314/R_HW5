@@ -54,18 +54,16 @@ tracts <- tracts("IL", "Cook", class = "sf")
 
 
 #fct stuff
-ch_hom_race <- fct_lump(ch_homs$victim_race, n = 2)
+ch_hom_race <- fct_lump(ch_homs$victim_race, n = 3)
 
 
 #Plot
-t <- ggplot() + 
+ggplot() + 
   geom_sf(data = tracts, color = "gray") +
   geom_sf(data = chi_bound2) +
   geom_sf(data = water, color = "aquamarine1", fill = "aquamarine1") +
-  geom_sf(data = ch_homs, aes(color = ch_hom_race))
-
-t + facet_grid(vars(fl))
-  
+  geom_sf(data = ch_homs, aes(color = ch_hom_race)) + 
+  facet_grid(vars(disposition))
 
 
 ```
