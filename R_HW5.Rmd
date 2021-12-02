@@ -22,19 +22,14 @@ library(viridis)
 library(tigris)
 library(sf)
 library(ggplot2)
+library(dplyr)
 homicide <- read.csv("homicide-data.csv")
 
 #Chicago homicides
 homicide <- homicide %>%
   filter(city == "Chicago") 
 
-solved <- homicide %>% 
-  filter(disposition == "Closed by arrest")
-unsolved_tot <- homicide %>% 
-  filter(disposition != "Closed by arrest")
-total <- left_join(unsolved_tot, solved)
-
-ch_homs <- st_as_sf(total, coords = c("lon", "lat")) %>%
+ch_homs <- st_as_sf(homicide, coords = c("lon", "lat")) %>%
   st_set_crs(4269)
 
 #Chicago/Cook County map
@@ -59,15 +54,15 @@ tracts <- tracts("IL", "Cook", class = "sf")
 
 
 #fct stuff
-ch_hom_race <- fct_lump(total$victim_race, n = 3)
-
+ch_hom_race <- fct_lump(homicide$victim_race, n = 3)
 
 #Plot
 ggplot() + 
   geom_sf(data = tracts, color = "gray") +
   geom_sf(data = chi_bound2) +
   geom_sf(data = water, color = "aquamarine1", fill = "aquamarine1") +
-  geom_sf(data = total, aes(color = ch_hom_race, geometry )) + 
-  facet_wrap(var(disposition))
+  geom_sf(data = ch_homs, aes(color = ch_hom_race)) + 
+  facet_grid(var(ch_homs$disposition))
 ```
+
 
