@@ -56,7 +56,7 @@ ggplot() +
   geom_sf(data = tracts, color = "gray") +
   geom_sf(data = chi_bound2, fill = NA) +
   geom_sf(data = water, color = "aquamarine1", fill = "aquamarine1") +
-  geom_sf(data = ch_homs, aes(color = ch_hom_race)) + 
+  geom_sf(data = ch_homs, aes(color = ch_hom_race, alpha = 0.1)) + 
   facet_grid(~disposition)
 ```
 
