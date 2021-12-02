@@ -23,7 +23,7 @@ homicide <- read.csv("homicide-data.csv")
 
 #Chicago homicides
 ch_homicide <- homicide %>%
-  filter(city == "Chicago")+
+  filter(city == "Chicago")
 
 ch_homs <- st_as_sf(ch_homicide, coords = c("lon", "lat")) %>%
   st_set_crs(4269)
@@ -33,13 +33,23 @@ ch_map <- counties(state = "IL", cb = TRUE, class = "sf")
 ch_map <- ch_map %>%
   filter(COUNTYFP == "031")
 
+#water area Chicago
+water <- area_water("IL", "Cook", class = "sf")
+
+#Areas
+cb <- core_based_statistical_areas(cb = TRUE)
+
+#Places
+places <-places(state = "IL", cb = TRUE)
+
+#Chicago boundaries
+chi_bound2 <-filter(places, NAME == "Chicago")
 
 #Plot
-ggplot() +
-  geom_sf(data = ch_map, color = "lightgray") +
+ggplot() + 
+  geom_sf(data = chi_bound2) +
+  geom_sf(data = water, color = "aquamarine1", fill = "aquamarine1") +
   geom_sf(data = ch_homs, aes(color = disposition))
-
-
 
 
 ```
