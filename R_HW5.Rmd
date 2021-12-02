@@ -13,7 +13,6 @@ Select one of the following two figures to create for the homework:
 
 Choice 1: Pick one city in the data. Create a map showing the locations of the homicides in that city, using the sf framework discussed in class. Use tigris to download boundaries for some sub-city geography (e.g., tracts, block groups, county subdivisions) to show as a layer underneath the points showing homicides. Use different facets for solved versus unsolved homicides and different colors to show the three race groups with the highest number of homicides for that city (you may find the fct_lump function from forcats useful for this).
 
-#1 Tigris
 #2 Solved/unsolved
 
 ```{r}
@@ -27,7 +26,11 @@ homicide <- read.csv("homicide-data.csv")
 
 #Chicago homicides
 ch_homicide <- homicide %>%
-  filter(city == "Chicago")
+  filter(city == "Chicago") %>%
+  select(victim_race, lat, lon, disposition)
+  filter(disposition != "closed by arrest")
+  
+
 
 ch_homs <- st_as_sf(ch_homicide, coords = c("lon", "lat")) %>%
   st_set_crs(4269)
@@ -63,7 +66,8 @@ ggplot() +
   geom_sf(data = chi_bound2) +
   geom_sf(data = water, color = "aquamarine1", fill = "aquamarine1") +
   geom_sf(data = ch_homs, aes(color = ch_hom_race)) + 
-  facet_grid(vars(disposition))
+  facet_grid(vars(disposition), margins = FALSE)
+
 
 
 ```
